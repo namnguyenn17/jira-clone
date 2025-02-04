@@ -1,7 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo '🏗️ Styling, testing and building your portfolio before committing.'
+echo '🏗️ Styling, testing and building your project before committing.'
 
 # Check Prettier standards
 echo '🎨 Prettifying your code.'
