@@ -21,15 +21,13 @@ import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
+import { useRegister } from "../api/use-register";
+import { registerSchema } from "../schemas";
 
-const formSchema = z.object({
-  name: z.string().min(6, "Name must be at least 6 characters").max(256),
-  email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters").max(256)
-});
 export const SignUpCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useRegister();
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -37,8 +35,9 @@ export const SignUpCard = () => {
     }
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = (values: z.infer<typeof registerSchema>) => {
+    console.log("values register", values);
+    mutate({ json: values });
   };
 
   return (
@@ -116,8 +115,13 @@ export const SignUpCard = () => {
                 </FormItem>
               )}
             />
-            <Button disabled={false} size={"lg"} className="w-full">
-              Sign In
+            <Button
+              type="submit"
+              disabled={false}
+              size={"lg"}
+              className="w-full"
+            >
+              Sign Up
             </Button>
           </form>
         </Form>

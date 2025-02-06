@@ -15,22 +15,23 @@ import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
+import { useLogin } from "../api/use-login";
+import { loginSchema } from "../schemas";
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters").max(256)
-});
 export const SignInCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useLogin();
+
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: ""
     }
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof loginSchema>) => {
     console.log(values);
+    mutate({ json: values });
   };
 
   return (
@@ -82,8 +83,13 @@ export const SignInCard = () => {
               )}
             />
 
-            <Button disabled={false} size={"lg"} className="w-full">
-              Sign In
+            <Button
+              type="submit"
+              disabled={false}
+              size={"lg"}
+              className="w-full"
+            >
+              Login
             </Button>
           </form>
         </Form>
