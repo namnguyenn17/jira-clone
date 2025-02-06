@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { PATHS } from "@/lib/paths";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -159,7 +160,7 @@ export const SignUpCard = () => {
       <CardContent className="p-7">
         <p className="text-center text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link href="/sign-in">
+          <Link href={PATHS.SIGN_IN}>
             <span className="text-blue-700">Sign In</span>
           </Link>
         </p>
