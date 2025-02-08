@@ -1,27 +1,18 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { useCurrent } from "@/features/auth/api/use-current";
-import { useLogout } from "@/features/auth/api/use-logout";
+import { getUser } from "@/features/auth/actions";
+import { UserButton } from "@/features/auth/components/user-button";
 import { PATHS } from "@/lib/paths";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  const router = useRouter();
-  const { data, isLoading } = useCurrent();
-  const { mutate } = useLogout();
+export default async function Home() {
+  const user = await getUser();
 
-  useEffect(() => {
-    if (!data && !isLoading) {
-      router.push(PATHS.SIGN_IN);
-    }
-  }, [data]);
+  if (!user) {
+    redirect(PATHS.SIGN_IN);
+  }
 
   return (
     <div className="flex gap-4">
-      Only logged in users can access this page.
-      <Button onClick={() => mutate()}>Logout</Button>
+      <UserButton />
     </div>
   );
 }

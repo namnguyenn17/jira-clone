@@ -1,8 +1,14 @@
-"use client";
-
+import { getUser } from "@/features/auth/actions";
 import { SignInCard } from "@/features/auth/components/sign-in-card";
+import { PATHS } from "@/lib/paths";
+import { redirect } from "next/navigation";
 
-const SignInPage = () => {
+const SignInPage = async () => {
+  const user = await getUser();
+
+  if (user) {
+    redirect(PATHS.DASHBOARD);
+  }
   return <SignInCard />;
 };
 
