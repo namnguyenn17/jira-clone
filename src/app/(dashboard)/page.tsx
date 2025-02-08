@@ -10,9 +10,5 @@ export default async function Home() {
     redirect(PATHS.SIGN_IN);
   }
 
-  return (
-    <div className="flex gap-4">
-      <UserButton />
-    </div>
-  );
+  return <div className="flex gap-4">This is the dashboard home page.</div>;
 }
