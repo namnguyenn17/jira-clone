@@ -1,6 +1,6 @@
 import { getUser } from "@/features/auth/actions";
 import CreateWorkspaceForm from "@/features/workspaces/components/create-workspace-form";
-import { PATHS } from "@/lib/paths";
+import { PATHS } from "@/utils/paths";
 import { redirect } from "next/navigation";
 
 export default async function Home() {

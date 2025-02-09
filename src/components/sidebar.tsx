@@ -1,4 +1,4 @@
-import { PATHS } from "@/lib/paths";
+import { PATHS } from "@/utils/paths";
 import Image from "next/image";
 import Link from "next/link";
 import { DottedSeparator } from "./dotted-separator";

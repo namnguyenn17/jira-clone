@@ -1,6 +1,6 @@
 import { getUser } from "@/features/auth/actions";
 import { SignUpCard } from "@/features/auth/components/sign-up-card";
-import { PATHS } from "@/lib/paths";
+import { PATHS } from "@/utils/paths";
 import { redirect } from "next/navigation";
 
 const SignUpPage = async () => {

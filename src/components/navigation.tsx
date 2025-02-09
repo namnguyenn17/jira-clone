@@ -1,4 +1,4 @@
-import { PATHS } from "@/lib/paths";
+import { PATHS } from "@/utils/paths";
 import { cn } from "@/lib/utils";
 import { SettingsIcon, UserIcon } from "lucide-react";
 import Link from "next/link";

@@ -10,7 +10,6 @@
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --write .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "format": "prettier --write .",
     "test-all": "bun run check-format && bun run check-lint && bun run check-types && bun run build",
     "prepare": "husky"
   },
