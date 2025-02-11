@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,8 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.className, "antialiased min-h-screen")}>
         <QueryProvider>
-          <Toaster />
-          {children}
+          <Suspense fallback={null}>
+            <Toaster />
+            {children}
+          </Suspense>
         </QueryProvider>
       </body>
     </html>
