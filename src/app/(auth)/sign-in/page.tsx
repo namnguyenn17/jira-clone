@@ -1,4 +1,4 @@
-import { getUser } from "@/features/auth/actions";
+import { getUser } from "@/features/auth/queries";
 import { SignInCard } from "@/features/auth/components/sign-in-card";
 import { PATHS } from "@/utils/paths";
 import { redirect } from "next/navigation";

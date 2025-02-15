@@ -1,7 +1,11 @@
-import { PATHS } from "@/utils/paths";
+"use client";
+
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
+import { PATHS } from "@/utils/paths";
 import { SettingsIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   GoCheckCircle,
   GoCheckCircleFill,
@@ -37,14 +41,18 @@ const routes = [
 ];
 
 export const Navigation = () => {
+  const workspaceId = useWorkspaceId();
+  const pathname = usePathname();
+
   return (
     <ul>
       {routes.map((item) => {
-        const isActive = false;
+        const fullHref = `${PATHS.WORKSPACES}/${workspaceId}${item.href}`;
+        const isActive = pathname === fullHref;
         const Icon = isActive ? item.activeIcon : item.icon;
 
         return (
-          <Link key={item.label} href={item.href}>
+          <Link key={item.label} href={fullHref}>
             <div
               className={cn(
                 "flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:text-primary transition text-neutral-500",

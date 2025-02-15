@@ -1,5 +1,5 @@
-import { getUser } from "@/features/auth/actions";
-import { getWorkspaces } from "@/features/workspaces/actions";
+import { getUser } from "@/features/auth/queries";
+import { getWorkspaces } from "@/features/workspaces/queries";
 import { PATHS } from "@/utils/paths";
 import { redirect } from "next/navigation";
 
