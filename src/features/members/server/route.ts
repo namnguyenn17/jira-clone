@@ -1,6 +1,6 @@
 import { createAdminClient } from "@/lib/appwrite";
 import { sessionMiddleware } from "@/lib/session-middleware";
-import { DATABASE_ID, MEMBER_ID } from "@/utils/config";
+import { DATABASE_ID, MEMBERS_ID } from "@/utils/config";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { Query } from "node-appwrite";
@@ -29,7 +29,7 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const members = await databases.listDocuments(DATABASE_ID, MEMBER_ID, [
+      const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
         Query.equal("workspaceId", workspaceId)
       ]);
 
@@ -60,13 +60,13 @@ const app = new Hono()
 
     const memberToDelete = await databases.getDocument(
       DATABASE_ID,
-      MEMBER_ID,
+      MEMBERS_ID,
       memberId
     );
 
     const allMembersInWorkspace = await databases.listDocuments(
       DATABASE_ID,
-      MEMBER_ID,
+      MEMBERS_ID,
       [Query.equal("workspaceId", memberToDelete.workspaceId)]
     );
 
@@ -88,7 +88,7 @@ const app = new Hono()
       return c.json({ error: "Cannot delete the only member" }, 401);
     }
 
-    await databases.deleteDocument(DATABASE_ID, MEMBER_ID, memberId);
+    await databases.deleteDocument(DATABASE_ID, MEMBERS_ID, memberId);
 
     return c.json({ data: { $id: memberToDelete.$id } });
   })
@@ -104,13 +104,13 @@ const app = new Hono()
 
       const memberToUpdate = await databases.getDocument(
         DATABASE_ID,
-        MEMBER_ID,
+        MEMBERS_ID,
         memberId
       );
 
       const allMembersInWorkspace = await databases.listDocuments(
         DATABASE_ID,
-        MEMBER_ID,
+        MEMBERS_ID,
         [Query.equal("workspaceId", memberToUpdate.workspaceId)]
       );
 
@@ -132,7 +132,7 @@ const app = new Hono()
         return c.json({ error: "Cannot downgrade the only member" }, 401);
       }
 
-      await databases.updateDocument(DATABASE_ID, MEMBER_ID, memberId, {
+      await databases.updateDocument(DATABASE_ID, MEMBERS_ID, memberId, {
         role
       });
 

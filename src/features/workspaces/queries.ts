@@ -1,7 +1,7 @@
 "use server";
 
 import { createSessionClient } from "@/lib/appwrite";
-import { DATABASE_ID, MEMBER_ID, WORKSPACE_ID } from "@/utils/config";
+import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/utils/config";
 import { Query } from "node-appwrite";
 import { getMember } from "../members/queries";
 import { Workspace } from "./type";
@@ -11,7 +11,7 @@ export const getWorkspaces = async () => {
     const { account, databases } = await createSessionClient();
     const user = await account.get();
 
-    const members = await databases.listDocuments(DATABASE_ID, MEMBER_ID, [
+    const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
       Query.equal("userId", user.$id)
     ]);
 
@@ -23,7 +23,7 @@ export const getWorkspaces = async () => {
 
     const workspaces = await databases.listDocuments(
       DATABASE_ID,
-      WORKSPACE_ID,
+      WORKSPACES_ID,
       [Query.orderDesc("$createdAt"), Query.contains("$id", workspaceIds)]
     );
 
@@ -53,7 +53,7 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
 
     const workspace = await databases.getDocument<Workspace>(
       DATABASE_ID,
-      WORKSPACE_ID,
+      WORKSPACES_ID,
       workspaceId
     );
 
@@ -74,7 +74,7 @@ export const getWorkspaceInfo = async ({
 
     const workspace = await databases.getDocument<Workspace>(
       DATABASE_ID,
-      WORKSPACE_ID,
+      WORKSPACES_ID,
       workspaceId
     );
 
