@@ -3,7 +3,6 @@
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
-import { useProjectId } from "@/features/projects/hooks/use-project-id";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
 import { PATHS } from "@/utils/paths";
@@ -12,7 +11,6 @@ import { usePathname } from "next/navigation";
 import { RiAddCircleFill } from "react-icons/ri";
 
 export const ProjectsList = () => {
-  const projectId = useProjectId();
   const workspaceId = useWorkspaceId();
   const { data: projects } = useGetProjects({ workspaceId });
   const pathName = usePathname();
@@ -28,7 +26,7 @@ export const ProjectsList = () => {
         />
       </div>
       {projects?.documents?.map((project) => {
-        const href = `${PATHS.WORKSPACES}/${workspaceId}/projects/${projectId}`;
+        const href = `${PATHS.WORKSPACES}/${workspaceId}/projects/${project.$id}`;
         const isActive = pathName === href;
         return (
           <Link href={href} key={project.$id}>
